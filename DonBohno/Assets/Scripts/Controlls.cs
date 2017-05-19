@@ -24,7 +24,7 @@ public class Controlls : MonoBehaviour {
             var xr = -Input.GetAxis("HorizontalRight_P" + playerID);
             var zr = -Input.GetAxis("VerticalRight_P" + playerID);
         if(xr != 0 || zr !=0)
-            thePlayer.transform.LookAt(transform.position + new Vector3(-Input.GetAxis("HorizontalRight_P"+ playerID), 0, -Input.GetAxis("VerticalRight_P" + playerID))); //thePlayer.transform.LookAt(new Vector3(xr,0,zr));
+            thePlayer.transform.LookAt(transform.position + new Vector3(-Input.GetAxis("HorizontalRight_P"+ playerID), 0, Input.GetAxis("VerticalRight_P" + playerID))); //thePlayer.transform.LookAt(new Vector3(xr,0,zr));
 
 
         //Debug.Log("x:" + x); Debug.Log("y:" + z);
