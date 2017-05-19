@@ -5,8 +5,9 @@ using UnityEngine;
 public class playerMovement : MonoBehaviour {
 
     public float speed = 1f;
+    public string playerID;
     private bool isGrounded;
-    private bool firstPush;
+    public bool firstPush = true;
     private float x;
     private float z;
     private Rigidbody rigid;
@@ -22,24 +23,25 @@ public class playerMovement : MonoBehaviour {
 	void Update () {
         if (firstPush)
         {
-            x = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
-            z = Input.GetAxis("Vertical") * Time.deltaTime * speed;
-            firstPush = false;
+            x = Input.GetAxis("Horizontal_P" + playerID) * Time.deltaTime * speed;
+            z = Input.GetAxis("Vertical_P" + playerID) * Time.deltaTime * speed;
+            if (x > 0 || z > 0)
+            {
+                firstPush = false;
+            }
         }
         if (isGrounded)
         {
-            x = Input.GetAxis("Horizontal") * Time.deltaTime * speed;
-            z = Input.GetAxis("Vertical") * Time.deltaTime * speed;
+            x = Input.GetAxis("Horizontal_P" + playerID) * Time.deltaTime * speed;
+            z = Input.GetAxis("Vertical_P" + playerID) * Time.deltaTime * speed;
         }
         if(x == 0 && z == 0)
         {
-            x *= -1;
-            z *= -1;
+            x = x * -1;
+            z = z * -1;
         }
-        Debug.Log(x + " und" + z);
+        Debug.Log(x + "und" + z);
         this.transform.position = this.transform.position += new Vector3(x, 0, z);
-
-        //rigid.AddForce(new Vector3(x, 0, z));
         
     }
 
