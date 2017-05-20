@@ -7,9 +7,21 @@ public class Controlls : MonoBehaviour {
 
     public string playerID;
     public GameObject thePlayer;
+    public GameObject shotPoint;
+    public int Health;
 
-	// Use this for initialization
-	void Start () {
+    public float speed;
+    public float tilt;
+
+
+    public GameObject shot;
+    public Transform shotSpawn;
+    public float fireRate;
+
+    private float nextFire;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -20,17 +32,22 @@ public class Controlls : MonoBehaviour {
             var z = Input.GetAxis("Vertical_P" + playerID) * Time.deltaTime * 3.0f;
 
         //shoot:
-        
+            if (Input.GetButton("Shoot_P" + playerID) && Time.time > nextFire)
+            {
+                nextFire = Time.time + fireRate;
+                Instantiate(shot, shotPoint.transform.position, thePlayer.transform.rotation);
+            }
+
             var xr = -Input.GetAxis("HorizontalRight_P" + playerID);
             var zr = -Input.GetAxis("VerticalRight_P" + playerID);
-        if(xr != 0 || zr !=0)
-            thePlayer.transform.LookAt(transform.position + new Vector3(-Input.GetAxis("HorizontalRight_P"+ playerID), 0, Input.GetAxis("VerticalRight_P" + playerID))); //thePlayer.transform.LookAt(new Vector3(xr,0,zr));
+            if (xr != 0 || zr != 0)
+                thePlayer.transform.LookAt(transform.position + new Vector3(-Input.GetAxis("HorizontalRight_P" + playerID), 0, Input.GetAxis("VerticalRight_P" + playerID))); //thePlayer.transform.LookAt(new Vector3(xr,0,zr));
 
 
-        //Debug.Log("x:" + x); Debug.Log("y:" + z);
-        Debug.Log("x:"+ xr); Debug.Log("y:" + zr);
-        this.transform.Translate(x, 0, z);
-        //Direction.transform.Rotate(0, PlayerRotX * 2.0f, 0); ?
-
+            //Debug.Log("x:" + x); Debug.Log("y:" + z);
+            Debug.Log("x:" + xr); Debug.Log("y:" + zr);
+            this.transform.Translate(x, 0, z);
+            //Direction.transform.Rotate(0, PlayerRotX * 2.0f, 0); ?
+        
     }
 }
