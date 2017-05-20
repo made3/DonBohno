@@ -19,4 +19,10 @@ public class Shot : MonoBehaviour {
 	void Update () {
         //bullet.transform.position += direction * Time.deltaTime;
 	}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Destroy(this.gameObject);
+
+    }
 }

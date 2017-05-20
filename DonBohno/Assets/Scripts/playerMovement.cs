@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class playerMovement : MonoBehaviour {
 
-    public float speed = 1f;
+    public float speed = 3f;
     public string playerID;
     private bool isGrounded;
     public bool firstPush = true;
-    private float x;
-    private float z;
+    public float x;
+    public float z;
     public GameObject thePlayer;
     public float groundedTime = 0.25f;
     private float tmpTime;
@@ -26,7 +26,6 @@ public class playerMovement : MonoBehaviour {
         firstPush = true;
         wrongDirection = false;
         tmpTime = groundedTime;
-        x = 0.02f;
     }
 	
 	// Update is called once per frame
@@ -52,7 +51,9 @@ public class playerMovement : MonoBehaviour {
             if (tmpTime <= 0)
             {
                 x = Input.GetAxis("Horizontal_P" + playerID) * Time.deltaTime * speed;
+                
                 z = Input.GetAxis("Vertical_P" + playerID) * Time.deltaTime * speed;
+
                 if (x == 0 && z == 0)
                 {
                     Debug.Log("IST IN 0");
@@ -68,12 +69,6 @@ public class playerMovement : MonoBehaviour {
                 }
                 tmpTime = groundedTime;
             }
-            /*
-        }else if (x == 0 && z == 0 && !isGrounded)
-        {
-            x = -tmpPosition.x;
-            z = -tmpPosition.z;
-        }*/
         }
 
 
@@ -97,21 +92,22 @@ public class playerMovement : MonoBehaviour {
         tmpX = x;
         tmpZ = z;
 
-        //Debug.Log(x + "und" + z);
+        Debug.Log(x + "und" + z);
         this.transform.position = this.transform.position += new Vector3(x, 0, z);
         
     }
 
     private void OnCollisionEnter(Collision collision)
-    {/*
-        if (collision.gameObject.Equals(tmpCollision))
+    {
+        if (collision.gameObject.tag.Equals("walls"))
         {
-            Debug.Log("tmpCollision");
-            Debug.Log("wrongDirection, dude");
-            wrongDirection = true;    
+            isGrounded = true;
+        }else if (collision.gameObject.tag.Equals("player"))
+        {
+            wrongDirection = true;
         }
-        tmpCollision = collision.gameObject;*/
-        isGrounded = true;
+        
+
     }
 
     private void OnCollisionStay(Collision collision)
@@ -127,6 +123,7 @@ public class playerMovement : MonoBehaviour {
             wrongDirection = true;
         }
         tmpCollision = collision.gameObject;
+
         isGrounded = false;
     }
 }
