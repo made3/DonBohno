@@ -18,6 +18,7 @@ public class playerMovement : MonoBehaviour {
     private bool wrongDirection;
     private float tmpX;
     private float tmpZ;
+    public int health;
 
 
     // Use this for initialization
@@ -42,7 +43,12 @@ public class playerMovement : MonoBehaviour {
         }*/
 
 
+        if(health <= 0)
+        {
+            Debug.Log("Bin auf 0 Health");
 
+            die();
+        }
 
         if (isGrounded)
         {
@@ -56,13 +62,13 @@ public class playerMovement : MonoBehaviour {
 
                 if (x == 0 && z == 0)
                 {
-                    Debug.Log("IST IN 0");
+                    //Debug.Log("IST IN 0");
                     x = -tmpX;
                     z = -tmpZ;
                 }
                 else if (wrongDirection)
                 {
-                    Debug.Log("IST IN ´wrongCol");
+                    //Debug.Log("IST IN ´wrongCol");
                     x = x * -1;
                     z = z * -1;
                     wrongDirection = false;
@@ -92,7 +98,7 @@ public class playerMovement : MonoBehaviour {
         tmpX = x;
         tmpZ = z;
 
-        Debug.Log(x + "und" + z);
+        //Debug.Log(x + "und" + z);
         this.transform.position = this.transform.position += new Vector3(x, 0, z);
         
     }
@@ -106,12 +112,14 @@ public class playerMovement : MonoBehaviour {
         {
             wrongDirection = true;
         }
-        
-
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
+        else if (collision.gameObject.tag.Equals("death"))
+        {
+            this.health = 0;
+        }
+        else if (collision.gameObject.tag.Equals("bullet"))
+        {
+            this.health -= 10;
+        }
 
 
     }
@@ -125,5 +133,12 @@ public class playerMovement : MonoBehaviour {
         tmpCollision = collision.gameObject;
 
         isGrounded = false;
+    }
+
+    public void die()
+    {
+        Destroy(this.gameObject);
+        //Application.LoadLevel("Scenes/main");
+        
     }
 }
