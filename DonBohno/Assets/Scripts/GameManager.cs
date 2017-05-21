@@ -24,7 +24,10 @@ public class GameManager : MonoBehaviour {
     public int winRate_P2;
     public int winCondition;
 
+    public GameObject Char1, Char2 ,char3 ,char4;
+
     public GameObject player1, player2;
+
     public GameObject[] spawnPoint;
     public GameObject dummiePlayer;
 	// Use this for initialization
@@ -36,14 +39,19 @@ public class GameManager : MonoBehaviour {
     public void spawnPlayer()
     {
         int rng = (int)Random.Range(0, 3);
-        //Instantiate(player1, spawnPoint[rng].transform.position, dummiePlayer.transform.rotation);
+        player1 = Instantiate(Char1, spawnPoint[0].transform.position, dummiePlayer.transform.rotation);
+        player1.GetComponent<Player>().playerID = ""+1;
         int tmpRnG = rng;
-        rng = (int)Random.Range(0, 3);
-        while (rng == tmpRnG);
-        {
-            rng = (int)Random.Range(0, 3);
-        }
-        //Instantiate(player2, spawnPoint[rng].transform.position, dummiePlayer.transform.rotation);
+        //while (rng == tmpRnG);
+        //{
+           // rng = (int)Random.Range(0, 3);
+            //if(rng != tmpRnG)char2
+            //{
+        player2 = Instantiate(Char2, spawnPoint[2].transform.position, dummiePlayer.transform.rotation);
+        player2.GetComponent<Player>().playerID = ""+2;
+        // }
+        // }
+
     }
 
     public void RoundOver()
@@ -53,6 +61,8 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        
         if (state == GameState.startGame)
         {
             spawnPlayer();
@@ -78,9 +88,10 @@ public class GameManager : MonoBehaviour {
         }
         if (state == GameState.roundOver)
         {
-            Destroy(player1);
-            Destroy(player2);
-            switch(tmpWin){
+            player2.GetComponent<Player>().die();
+            player1.GetComponent<Player>().die();
+
+            switch (tmpWin){
                 case WhoWins.NoOne: break;
                 case WhoWins.P1: winRate_P1 += 1; break;
                 case WhoWins.P2: winRate_P2 += 1; break;
@@ -99,6 +110,7 @@ public class GameManager : MonoBehaviour {
             // tmpWin Wins:
             //player1 : 10
             //player2 : 2
+            Application.LoadLevel("main2");
         }
     }
 }
