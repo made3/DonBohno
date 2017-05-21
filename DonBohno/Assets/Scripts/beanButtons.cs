@@ -33,7 +33,7 @@ public class beanButtons : MonoBehaviour {
                 tmpTime -= Time.deltaTime;
                 if (tmpTime <= 0)
                 {
-                    Debug.Log("Szenenwechsel");
+                    Application.LoadLevel("main2");
                 }
             }
 
@@ -51,10 +51,5 @@ public class beanButtons : MonoBehaviour {
         isCollided = true;
     }
 
-    private void OnBecameInvisible()
-    {
-        isCollided = false;
-        martinBean.transform.position = currentPosMartin;
-        pascalBean.transform.position = currentPosPascal;
-    }
+
 }
