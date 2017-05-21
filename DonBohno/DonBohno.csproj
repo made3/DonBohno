@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\ShotTitlescreen.cs" />
     <Compile Include="Assets\Scripts\ThompsonTitlescreen.cs" />
     <Compile Include="Assets\Scripts\beanButtons.cs" />
+    <Compile Include="Assets\Scripts\charChoiceControls.cs" />
     <Compile Include="Assets\Scripts\creditBeanRotation.cs" />
     <Compile Include="Assets\Scripts\playerControlls.cs" />
     <Compile Include="Assets\Scripts\playerMovement.cs" />
