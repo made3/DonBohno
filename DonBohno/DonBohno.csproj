@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Controlls.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\Playerlist.cs" />
     <Compile Include="Assets\Scripts\Projectil.cs" />
     <Compile Include="Assets\Scripts\Shot.cs" />
     <Compile Include="Assets\Scripts\ShotTitlescreen.cs" />

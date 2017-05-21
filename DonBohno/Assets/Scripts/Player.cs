@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
     public GameObject shot;
     public GameObject shotPoint;
 
+    public GameObject tutorialUI;
+
     //Stats
     public int health;
     public float speed;
@@ -70,13 +72,13 @@ public class Player : MonoBehaviour
     {
         if (isStart)
         {
-            tmpTime -= Time.deltaTime;
-            if (tmpTime <= 0)
+            if (Input.GetButton("Accept_P" + 1))
             {
+                tutorialUI.SetActive(false);
                 Vector3 myVec = new Vector3(Input.GetAxis("Horizontal_P" + playerID), 0, Input.GetAxis("Vertical_P" + playerID));
                 theRigidbody.velocity = myVec.normalized * speed;
                 lastVec = theRigidbody.velocity;
-                if(theRigidbody.velocity.x != 0 && theRigidbody.velocity.z != 0) { isStart = false; }  
+                if (theRigidbody.velocity.x != 0 && theRigidbody.velocity.z != 0) { isStart = false; }
             }
         }
 

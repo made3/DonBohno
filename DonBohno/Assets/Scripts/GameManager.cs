@@ -15,7 +15,6 @@ enum WhoWins
     NoOne,
     P1,
     P2
-    
 }
 
 public class GameManager : MonoBehaviour {
@@ -32,23 +31,40 @@ public class GameManager : MonoBehaviour {
     public Text playerRoundWin;
     public GameObject playerRoundWinUI;
 
+    public Text playerGameWin;
+    public GameObject playerGameWinUI;
+
+    public GameObject tutorial;
+
     public GameObject Char1, Char2 ,char3 ,char4;
 
     public GameObject player1, player2;
 
     private bool showingRoundWinner;
+    private bool showingGameWinner;
 
     public float timeAfterRound;
     private float tmpTimeAfterRound;
+
+    public float timeTutorial;
+    private float tmpTimeTutorial;
+
+    public float timeAfterGame;
+    private float tmpTimeAfterGame;
+
+    private bool playerSpawned;
 
     public GameObject[] spawnPoint;
     public GameObject dummiePlayer;
 	// Use this for initialization
 	void Start () {
-        spawnPlayer();
-        state = GameState.inGame;
+        state = GameState.startGame;
         showingRoundWinner = false;
+        showingGameWinner = false;
+        playerSpawned = false;
         tmpTimeAfterRound = timeAfterRound;
+        tmpTimeAfterGame = timeAfterGame;
+        tmpTimeTutorial = timeTutorial;
     }
 
     public void spawnPlayer()
@@ -89,15 +105,60 @@ public class GameManager : MonoBehaviour {
             playerRoundWinUI.SetActive(false);
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    public void GameOver(bool show)
+    {
+        if (show)
+        {
+            if (tmpWin.Equals(WhoWins.P1))
+            {
+                playerGameWin.text = "Player 1 won the Game!";
+            }
+            else if (tmpWin.Equals(WhoWins.P2))
+            {
+                playerGameWin.text = "Player 2 won the Game!";
+            }
+
+            playerGameWinUI.SetActive(true);
+        }
+        else
+        {
+            playerGameWinUI.SetActive(false);
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
 
         if (state == GameState.startGame)
         {
-            spawnPlayer();
-            //timer;
-            state = GameState.inGame;
+            if (!playerSpawned)
+            {
+                spawnPlayer();
+                playerSpawned = true;
+            }
+
+            if (!tutorial.activeSelf)
+            {
+                state = GameState.inGame;
+            }
+
+
+
+            /*
+            if (tutorial.activeSelf)
+            {
+
+                tmpTimeTutorial -= Time.deltaTime;
+                if (tmpTimeTutorial <= 0)
+                {
+                    tutorial.SetActive(false);
+                    
+                }
+            }
+            */
+
+
         }
         if (state == GameState.inGame) {
 
@@ -157,16 +218,28 @@ public class GameManager : MonoBehaviour {
                 else
                 {
                     showingRoundWinner = false;
+                    playerSpawned = false;
                     state = GameState.startGame;
                 }
             }
         }
         if (state == GameState.GameOver)
         {
-            // tmpWin Wins:
-            //player1 : 10
-            //player2 : 2
-            Application.LoadLevel("title");
+            GameOver(true);
+            tmpTimeAfterGame -= Time.deltaTime;
+            if (tmpTimeAfterGame <= 0)
+            {
+                GameOver(false);
+                tmpTimeAfterGame = timeAfterGame;
+                showingGameWinner = true;
+
+                // tmpWin Wins:
+                //player1 : 10
+                //player2 : 2
+                Application.LoadLevel("title");
+            }
+
+            
         }
     }
 }
