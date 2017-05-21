@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -13,9 +12,6 @@ public class Player : MonoBehaviour
     public bool isStart;
     public Vector3 lastVec;
     public Vector3 PlayerVec;
-
-    public Text player1health;
-    public Text player2health;
 
     public float fireRate;
     private float nextFire;
@@ -43,14 +39,6 @@ public class Player : MonoBehaviour
     {
         theRigidbody = this.GetComponent<Rigidbody>();
         isStart = true;
-        if (playerID.Equals("1"))
-        {
-            player1health.text = "" + health;
-        }
-        if (playerID.Equals("2"))
-        {
-            player2health.text = "" + health;
-        }
     }
 
     // Update is called once per frame
@@ -139,16 +127,8 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.tag.Equals("bullet"))
         {
-            health -= 1;
+            health -= 42;
             particleBlood.Play();
-            if (playerID.Equals("1"))
-            {
-                player1health.text = ""+health;
-            }
-            if (playerID.Equals("2"))
-            {
-                player2health.text = "" + health;
-            }
         }
     }
 
