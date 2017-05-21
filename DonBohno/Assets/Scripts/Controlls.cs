@@ -9,6 +9,8 @@ public class Controlls : MonoBehaviour {
     public GameObject thePlayer;
     public GameObject shotPoint;
     public int Health;
+    public ParticleSystem particle1;
+    public ParticleSystem particle2;
 
     public float speed;
     public float tilt;
@@ -32,6 +34,8 @@ public class Controlls : MonoBehaviour {
             if (Input.GetButton("Shoot_P" + playerID) && Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
+                particle1.Play();
+                particle2.Play();
                 Instantiate(shot, shotPoint.transform.position, thePlayer.transform.rotation);
             }        
     }

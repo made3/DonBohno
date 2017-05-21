@@ -3,142 +3,102 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class playerMovement : MonoBehaviour {
-
-    public float speed = 3f;
+    //Controll var´s
     public string playerID;
-    private bool isGrounded;
-    public bool firstPush = true;
-    public float x;
-    public float z;
-    public GameObject thePlayer;
-    public float groundedTime = 0.25f;
-    private float tmpTime;
-    private Vector3 tmpPosition;
-    private GameObject tmpCollision;
-    private bool wrongDirection;
-    private float tmpX;
-    private float tmpZ;
-    public int health;
+    public bool isGrounded;
+    public bool secondColide;
+    public bool colideWithPlayer;
+    public Vector3 lastVec;
+    public Vector3 PlayerVec;
 
+    private float tmpTime = 0.25f;
+    private Collision lastCollision;
+
+    //GameObjects
+    public GameObject thePlayer;
+    public Rigidbody theRigidbody;
+    public ParticleSystem particleBlood;
+
+    //Stats
+    public int health;
+    public float speed;
 
     // Use this for initialization
     void Start () {
-        isGrounded = false;
-        firstPush = true;
-        wrongDirection = false;
-        tmpTime = groundedTime;
+        theRigidbody = this.GetComponent<Rigidbody>();
+        theRigidbody.velocity = new Vector3(1 * speed, 0, 0);
+        health = 10;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        /*
-        if (firstPush)
-        {
-            x = Input.GetAxis("Horizontal_P" + playerID) * Time.deltaTime * speed;
-            z = Input.GetAxis("Vertical_P" + playerID) * Time.deltaTime * speed;
-            if (x > 0 || z > 0)
-            {
-                firstPush = false;
-            }
-        }*/
 
-
-        if(health <= 0)
-        {
-            Debug.Log("Bin auf 0 Health");
-
-            die();
-        }
-
-        if (isGrounded)
-        {
-            this.transform.position = tmpPosition;
-            tmpTime -= Time.deltaTime;
-            if (tmpTime <= 0)
-            {
-                x = Input.GetAxis("Horizontal_P" + playerID) * Time.deltaTime * speed;
-                
-                z = Input.GetAxis("Vertical_P" + playerID) * Time.deltaTime * speed;
-
-                if (x == 0 && z == 0)
-                {
-                    //Debug.Log("IST IN 0");
-                    x = -tmpX;
-                    z = -tmpZ;
-                }
-                else if (wrongDirection)
-                {
-                    //Debug.Log("IST IN ´wrongCol");
-                    x = x * -1;
-                    z = z * -1;
-                    wrongDirection = false;
-                }
-                tmpTime = groundedTime;
-            }
-        }
-
-
-
-
-
-
+    // Update is called once per frame
+    void Update() {
         // Player Rotation mit Gun:
 
-        var xr = -Input.GetAxis("HorizontalRight_P" + playerID);
-        var zr = Input.GetAxis("VerticalRight_P" + playerID);
-
-        if (xr != 0 || zr != 0)
+        float xRot = -Input.GetAxis("HorizontalRight_P" + playerID);
+        float zRot = Input.GetAxis("VerticalRight_P" + playerID);
+        if (xRot != 0 || zRot != 0)
         {
-            thePlayer.transform.LookAt(transform.position + new Vector3(xr, 0, zr));
+            thePlayer.transform.LookAt(transform.position + new Vector3(xRot, 0, zRot));
         }
+        if(health <= 0)
+        {
+            die();
+        }
+    }
+    //Player Move:
 
-
-
-        tmpPosition = this.transform.position;
-        tmpX = x;
-        tmpZ = z;
-
-        //Debug.Log(x + "und" + z);
-        this.transform.position = this.transform.position += new Vector3(x, 0, z);
-        
+    public void FixedUpdate()
+    {
+        tmpTime -= Time.deltaTime;
+        if (tmpTime <= 0) { 
+            if (isGrounded && !secondColide && !colideWithPlayer)
+            {
+                Vector3 myVec = new Vector3(Input.GetAxis("Horizontal_P" + playerID), 0, Input.GetAxis("Vertical_P" + playerID));
+                theRigidbody.velocity = myVec.normalized * speed;
+                lastVec = theRigidbody.velocity;
+            }
+            if (!secondColide && colideWithPlayer)
+            {
+                theRigidbody.velocity = -lastVec;
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag.Equals("walls"))
+        Vector3 tmpVector;
+        if ((collision.gameObject.tag.Equals("walls")) && lastCollision != collision)
         {
             isGrounded = true;
-        }else if (collision.gameObject.tag.Equals("player"))
-        {
-            wrongDirection = true;
+            lastCollision = collision;
+            theRigidbody.velocity = new Vector3(0,0,0);
+            colideWithPlayer = false;
         }
-        else if (collision.gameObject.tag.Equals("death"))
+        else if (collision.gameObject.tag.Equals("player"))
         {
-            this.health = 0;
+            theRigidbody.velocity = new Vector3(0, 0, 0);
+            PlayerVec = collision.gameObject.GetComponent<playerMovement>().lastVec;
+            colideWithPlayer = true;
         }
-        else if (collision.gameObject.tag.Equals("bullet"))
+        if (collision.gameObject.tag.Equals("death"))
         {
-            this.health -= 10;
+            die();
         }
-
-
+        if (collision.gameObject.tag.Equals("bullet"))
+        {
+            health -= 1;
+            particleBlood.Play();
+        }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.Equals(tmpCollision) || wrongDirection == false)
-        {
-            wrongDirection = true;
-        }
-        tmpCollision = collision.gameObject;
-
+        
         isGrounded = false;
     }
 
     public void die()
     {
         Destroy(this.gameObject);
-        //Application.LoadLevel("Scenes/main");
-        
     }
 }
