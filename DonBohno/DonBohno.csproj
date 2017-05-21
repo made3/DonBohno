@@ -92,6 +92,8 @@
     <Compile Include="Assets\Scripts\Projectil.cs" />
     <Compile Include="Assets\Scripts\Shot.cs" />
     <Compile Include="Assets\Scripts\ShotTitlescreen.cs" />
+    <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\SoundPitcher.cs" />
     <Compile Include="Assets\Scripts\ThompsonTitlescreen.cs" />
     <Compile Include="Assets\Scripts\beanButtons.cs" />
     <Compile Include="Assets\Scripts\charChoiceControls.cs" />

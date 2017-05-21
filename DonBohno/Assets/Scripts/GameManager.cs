@@ -138,6 +138,11 @@ public class GameManager : MonoBehaviour {
                 playerSpawned = true;
             }
 
+            if(player1.GetComponent<Player>().xPressed || player2.GetComponent<Player>().xPressed)
+            {
+                tutorial.SetActive(false);
+            }
+
             if (!tutorial.activeSelf)
             {
                 state = GameState.inGame;

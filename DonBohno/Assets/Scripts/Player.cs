@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     public GameObject shotPoint;
 
     public GameObject tutorialUI;
+    public bool xPressed;
 
     //Stats
     public int health;
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour
     {
         theRigidbody = this.GetComponent<Rigidbody>();
         isStart = true;
+        xPressed = false;
     }
 
     // Update is called once per frame
@@ -72,9 +74,11 @@ public class Player : MonoBehaviour
     {
         if (isStart)
         {
-            if (Input.GetButton("Accept_P" + 1))
+            if (Input.GetButton("Accept_P" + playerID))
             {
-                tutorialUI.SetActive(false);
+                xPressed = true;
+            }
+            if (xPressed) { 
                 Vector3 myVec = new Vector3(Input.GetAxis("Horizontal_P" + playerID), 0, Input.GetAxis("Vertical_P" + playerID));
                 theRigidbody.velocity = myVec.normalized * speed;
                 lastVec = theRigidbody.velocity;
