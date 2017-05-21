@@ -29,13 +29,13 @@ public class GameManager : MonoBehaviour {
     public GameObject dummiePlayer;
 	// Use this for initialization
 	void Start () {
-        state = GameState.inGame;
         spawnPlayer();
+        state = GameState.inGame;
     }
 
     public void spawnPlayer()
     {
-        int rng = (int)Random.Range(-10.0f, 10.0f);
+        int rng = (int)Random.Range(0, 3);
         //Instantiate(player1, spawnPoint[rng].transform.position, dummiePlayer.transform.rotation);
         int tmpRnG = rng;
         rng = (int)Random.Range(0, 3);
@@ -89,10 +89,16 @@ public class GameManager : MonoBehaviour {
             {
                 state = GameState.GameOver;
             }
+            else
+            {
+                state = GameState.startGame;
+            }
         }
         if (state == GameState.GameOver)
         {
-
+            // tmpWin Wins:
+            //player1 : 10
+            //player2 : 2
         }
     }
 }
