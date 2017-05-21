@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    public GameObject player1;
-    public GameObject player2;
+     GameObject _player1;
+     GameObject _player2;
     public GameObject Camera;
+
+    public GameObject masterObject;
+    GameManager master;
 
     float p1x;
     float p1y;
@@ -15,20 +18,23 @@ public class CameraMovement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        master = masterObject.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(player1 && player2) { 
-        p1x = player1.transform.position.x;
-        p1y = player1.transform.position.z;
-        p2x = player2.transform.position.x;
-        p2y = player2.transform.position.z;
+        _player1 = master.player1;
+        _player2 = master.player2;
+        if (_player1 && _player2) { 
+        p1x = _player1.transform.position.x;
+        p1y = _player1.transform.position.z;
+        p2x = _player2.transform.position.x;
+        p2y = _player2.transform.position.z;
+            Debug.Log("p1x" + p1x + " p2x" + p2x + " p1z" + p1y + "p2z" + p2y);
         }
 
 
-        Camera.transform.position = new Vector3((p1x+p2x)/2,0,(p1y+p2y)/2);
+        this.transform.position = new Vector3((p1x+p2x)/2, this.transform.position.y ,(p1y+p2y)/2);
     }
 }

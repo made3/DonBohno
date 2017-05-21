@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour {
             // tmpWin Wins:
             //player1 : 10
             //player2 : 2
-            Application.LoadLevel("main2");
+            Application.LoadLevel("title");
         }
     }
 }
