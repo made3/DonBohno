@@ -90,8 +90,13 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Projectil.cs" />
     <Compile Include="Assets\Scripts\Shot.cs" />
+    <Compile Include="Assets\Scripts\ShotTitlescreen.cs" />
+    <Compile Include="Assets\Scripts\ThompsonTitlescreen.cs" />
+    <Compile Include="Assets\Scripts\beanButtons.cs" />
+    <Compile Include="Assets\Scripts\creditBeanRotation.cs" />
     <Compile Include="Assets\Scripts\playerControlls.cs" />
     <Compile Include="Assets\Scripts\playerMovement.cs" />
+    <Compile Include="Assets\Scripts\titleBeanRotation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -8,17 +8,12 @@ public class Controlls : MonoBehaviour {
     public string playerID;
     public GameObject thePlayer;
     public GameObject shotPoint;
-    public int Health;
-    public ParticleSystem particle1;
-    public ParticleSystem particle2;
-
-    public float speed;
-    public float tilt;
-
 
     public GameObject shot;
-    public Transform shotSpawn;
     public float fireRate;
+    public ParticleSystem system1;
+    public ParticleSystem system2;
+
 
     private float nextFire;
 
@@ -33,9 +28,9 @@ public class Controlls : MonoBehaviour {
         //shoot:
             if (Input.GetButton("Shoot_P" + playerID) && Time.time > nextFire)
             {
+                system1.Play();
+                system2.Play();
                 nextFire = Time.time + fireRate;
-                particle1.Play();
-                particle2.Play();
                 Instantiate(shot, shotPoint.transform.position, thePlayer.transform.rotation);
             }        
     }
