@@ -910,7 +910,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 79}
+  m_AnchoredPosition: {x: 0, y: 62}
   m_SizeDelta: {x: 527.53, y: 190.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &862486719
@@ -1277,13 +1277,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6063f01f2dcf3364cb160a3181d47f5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 1
-  thePlayer: {fileID: 1134917649}
-  shotPoint: {fileID: 393347674}
-  shot: {fileID: 1044986916236064, guid: 8f788b14525e52f4d9e0c429e561956d, type: 2}
-  fireRate: 0.25
-  system1: {fileID: 1563416974}
-  system2: {fileID: 1412313827}
 --- !u!1001 &1220500352
 Prefab:
   m_ObjectHideFlags: 0
@@ -4917,7 +4910,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
