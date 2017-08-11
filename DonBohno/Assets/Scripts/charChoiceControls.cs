@@ -21,9 +21,12 @@ public class charChoiceControls : MonoBehaviour {
     public GameObject p2;
     public GameObject playerList;
 
-	// Use this for initialization
-	void Start () {
+    private int pfuschvariable = 0;
+
+    // Use this for initialization
+    void Start () {
         noChange = true;
+        _tmptime = time;
 	}
 	
 	// Update is called once per frame
@@ -32,20 +35,20 @@ public class charChoiceControls : MonoBehaviour {
         if(playerID.Equals("1"))
         {
             _tmptime -= Time.deltaTime;
-            if ((_tmptime <= 0) && Input.GetAxis("Horizontal_P" + playerID) > 1.1 || Input.GetAxis("Horizontal_P" + playerID) < 1.1 && _tmptime <= 0)
+            
+            if (Input.GetAxis("Horizontal_P" + playerID) < -0.9 && (_tmptime <= 0))
             {
-                if (Input.GetAxis("Horizontal_P" + playerID) < 0)
-                {
-                    ChangeChar(-1);
-                }
-                if (Input.GetAxis("Horizontal_P" + playerID) > 0)
-                {
-                    ChangeChar(1);
-                }
+                ChangeChar(-1);
                 _tmptime = time;
-                
-                lastInput = Input.GetAxis("Horizontal_P" + playerID);
             }
+            if (Input.GetAxis("Horizontal_P" + playerID) > 0.9 && (_tmptime <= 0))
+            {
+                ChangeChar(1);
+                _tmptime = time;
+            }
+            
+            lastInput = Input.GetAxis("Horizontal_P" + playerID);
+            
             if (Input.GetButton("Accept_P" + playerID) && noChange)
             {
                 noChange = false;
@@ -53,33 +56,39 @@ public class charChoiceControls : MonoBehaviour {
             }
             
         }
-
-        if (playerID.Equals("1"))
+        
+        if (playerID.Equals("2"))
         {
             _tmptime -= Time.deltaTime;
-            if ((_tmptime <= 0) && Input.GetAxis("Horizontal_P" + playerID) > 1.1 || Input.GetAxis("Horizontal_P" + playerID) < 1.1 && _tmptime <= 0)
+            
+            if (Input.GetAxis("Horizontal_P" + 1) < -0.9 && (_tmptime <= 0))
             {
-                if (Input.GetAxis("Horizontal_P" + playerID) < 0)
-                {
-                    ChangeChar(-1);
-                }
-                if (Input.GetAxis("Horizontal_P" + playerID) > 0)
-                {
-                    ChangeChar(1);
-                }
+                ChangeChar(-1);
                 _tmptime = time;
-
-                lastInput = Input.GetAxis("Horizontal_P" + playerID);
+                pfuschvariable++;
             }
-            if (Input.GetButton("Accept_P" + playerID) && noChange)
+            if (Input.GetAxis("Horizontal_P" + 1) > 0.9 && (_tmptime <= 0))
+            {
+                ChangeChar(1);
+                _tmptime = time;
+                pfuschvariable++;
+            }
+            
+            lastInput = Input.GetAxis("Horizontal_P" + 1);
+
+            if (Input.GetButton("Accept_P" + 1) && noChange)
             {
                 noChange = false;
                 ChangePlayer();
             }
 
+            if(pfuschvariable >= 4)
+            {
+                SceneManager.LoadScene("main2");
+            }
+
         }
-
-
+        
 
         /*
         float xRot = -Input.GetAxis("Horizontal_P" + playerID);
@@ -128,7 +137,7 @@ public class charChoiceControls : MonoBehaviour {
         }
         else
         {
-            SceneManager.LoadScene("main2");
+            //SceneManager.LoadScene("main2");
         }
     }
 }

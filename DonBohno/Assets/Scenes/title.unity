@@ -1274,9 +1274,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1134917649}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6063f01f2dcf3364cb160a3181d47f5e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4995622a06501304ea7a56f3c8aa1f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 1
+  thePlayer: {fileID: 1134917649}
+  shotPoint: {fileID: 393347674}
+  shot: {fileID: 1044986916236064, guid: 8f788b14525e52f4d9e0c429e561956d, type: 2}
+  fireRate: 0.2
+  system1: {fileID: 1563416974}
+  system2: {fileID: 1412313827}
 --- !u!1001 &1220500352
 Prefab:
   m_ObjectHideFlags: 0

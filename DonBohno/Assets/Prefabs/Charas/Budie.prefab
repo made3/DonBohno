@@ -542,7 +542,7 @@ MonoBehaviour:
   isStart: 0
   lastVec: {x: 0, y: 0, z: 0}
   PlayerVec: {x: 0, y: 0, z: 0}
-  fireRate: 0.5
+  fireRate: 0.1
   thePlayer: {fileID: 1548690082708848}
   theRigidbody: {fileID: 0}
   particleBlood: {fileID: 198200647510510216}
@@ -551,6 +551,7 @@ MonoBehaviour:
   shot: {fileID: 1897827311323724, guid: feaeed83d5c388947b8873b5e618cd3a, type: 2}
   shotPoint: {fileID: 1762756536913838}
   tutorialUI: {fileID: 0}
+  xPressed: 0
   health: 1000
   speed: 3
 --- !u!136 &136180829560883592

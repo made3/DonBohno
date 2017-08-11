@@ -167,12 +167,23 @@ public class GameManager : MonoBehaviour {
         }
         if (state == GameState.inGame) {
 
+            if (player1.GetComponent<Player>().health > 0)
+            {
+                player1health.text = "" + player1.GetComponent<Player>().health;
+            }
+            else
+            {
+                player1health.text = "0";
+            }
 
-            player1health.text = "" + player1.GetComponent<Player>().health;
-            
-            
-            player2health.text = "" + player1.GetComponent<Player>().health;
-            
+            if (player2.GetComponent<Player>().health > 0)
+            {
+                player2health.text = "" + player2.GetComponent<Player>().health;
+            }
+            else
+            {
+                player2health.text = "0";
+            }
 
             if (player1.GetComponent<Player>().health <= 0 && player2.GetComponent<Player>().health <= 0)
             {

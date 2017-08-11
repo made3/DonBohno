@@ -33,7 +33,7 @@ public class beanButtons : MonoBehaviour {
                 tmpTime -= Time.deltaTime;
                 if (tmpTime <= 0)
                 {
-                    Application.LoadLevel("main2");
+                    Application.LoadLevel("characterChoice");
                 }
             }
 

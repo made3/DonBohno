@@ -372,7 +372,7 @@ MonoBehaviour:
   - {fileID: 1926307416}
   - {fileID: 1555021425}
   - {fileID: 1260087364}
-  time: 1
+  time: 0.5
   p1: {fileID: 74341360}
   p2: {fileID: 398857038}
   playerList: {fileID: 188302868}
